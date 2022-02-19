@@ -3,6 +3,7 @@ import java.util.List;
 
 public class BuilderPawn {
 
+    private static final int MAX_TOWER_HEIGHT = 3;
     private String pawnId;
     private Space currentSpace;
     private Player player;
@@ -12,6 +13,11 @@ public class BuilderPawn {
         this.player = player;
     }
 
+    /**
+     * Return all the spaces that the pawn can move to
+     * @param board game board
+     * @return  list of move-able spaces
+     */
     public List<Space> getMovableSpaces(Board board) {
         List<Space> spaceList = new ArrayList<>();
         for (int i = 0; i < board.getBoardLength(); i ++) {
@@ -49,8 +55,8 @@ public class BuilderPawn {
      *  3. target space has no pawn
      *  4. target space has no dome
      *
-     * @param space
-     * @return
+     * @param space Target space to go to
+     * @return  true if pawn can move to the target space
      */
     public boolean canMoveTo(Space space) {
         return isAdjacentAndUnoccupied(space) && isSpaceHeightDiffLessOrEqualThanOne(space);
@@ -58,9 +64,9 @@ public class BuilderPawn {
     }
 
     /**
-     *
-     * @param space
-     * @return
+     * Move the pawn to target space
+     * @param space target space to go to
+     * @return  true if the move succeed, else false
      */
     public boolean moveTo(Space space) {
         if (!canMoveTo(space)) {
@@ -79,6 +85,11 @@ public class BuilderPawn {
         return true;
     }
 
+    /**
+     * Get all the spaces that could be built upon
+     * @param board game board
+     * @return  list of spaces that pawn can build upon
+     */
     public List<Space> getBuildableSpaces(Board board) {
         List<Space> spaceList = new ArrayList<>();
         for (int i = 0; i < board.getBoardLength(); i ++) {
@@ -104,9 +115,14 @@ public class BuilderPawn {
      * @return  true, if we can build on the space
      */
     public boolean canBuildOn(Space space) {
-        return isAdjacentAndUnoccupied(space) && space.getHeight() < 3;
+        return isAdjacentAndUnoccupied(space) && space.getHeight() < MAX_TOWER_HEIGHT;
     }
 
+    /**
+     * Build on the target space
+     * @param space target space
+     * @return  true if build succeed
+     */
     public boolean buildOn(Space space) {
         if(!canBuildOn(space)) {
             return false;
@@ -114,10 +130,20 @@ public class BuilderPawn {
         return space.addHeight();
     }
 
+    /**
+     * If the pawn could put dome on the space, it should be unoccupied and adjacent, plus height is 3
+     * @param space target space
+     * @return  true if the pawn can put dome on the space
+     */
     public boolean canPutDomeOn(Space space) {
-        return isAdjacentAndUnoccupied(space) && space.getHeight() == 3;
+        return isAdjacentAndUnoccupied(space) && space.getHeight() == MAX_TOWER_HEIGHT;
     }
 
+    /**
+     * Put dome on the space
+     * @param space target space
+     * @return  true if putting dome succeed
+     */
     public boolean putDomeOn(Space space) {
         if (!canPutDomeOn(space)) {
             return false;
@@ -128,14 +154,14 @@ public class BuilderPawn {
     }
 
     protected boolean hasWonGame(Space oldSpace) {
-        return currentSpace.getHeight() == 3 && oldSpace.getHeight() < 3;
+        return currentSpace.getHeight() == MAX_TOWER_HEIGHT && oldSpace.getHeight() < MAX_TOWER_HEIGHT;
     }
 
     /**
      * Place Pawn at initial stage
      *
-     * @param space
-     * @return
+     * @param space target space
+     * @return  true if initial placement succeed
      */
     public boolean initPlacePawn(Space space) {
         if (space.hasPawn()) {

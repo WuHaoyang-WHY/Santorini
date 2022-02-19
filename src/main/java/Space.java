@@ -1,5 +1,6 @@
 public class Space {
 
+    private static final int MAX_TOWER_HEIGHT = 3;
     private int xCoordinate;
     private int yCoordinate;
     private int height;
@@ -21,14 +22,22 @@ public class Space {
         this.hasDome = hasDome;
     }
 
+    /**
+     * add height to the current space. Only if height is smaller than 3 and has no dome on it.
+     * @return  true if add height succeed
+     */
     public boolean addHeight() {
-        if (height >= 3 || hasDome) {
+        if (height >= MAX_TOWER_HEIGHT || hasDome) {
             return false;
         }
         height ++;
         return true;
     }
 
+    /**
+     * tell if there is a pawn standing on the space
+     * @return  true is occupied by a pawn
+     */
     public boolean hasPawn() {
         return pawn != null;
     }

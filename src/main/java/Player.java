@@ -17,20 +17,29 @@ public class Player {
         initBuilderPawns();
     }
 
-
     /**
-     *
-     * @param pawnNumber
-     * @return
+     * Auto generate the pawn id, in the format: "<playerId>'s <pawnNumber>". eg: "player0's 0"
+     * @param pawnNumber    the id of pawn, using numbers by default
+     * @return  generated pawn id
      */
     public String generatePawnId(String pawnNumber) {
-        return playerId + "'s" + pawnNumber;
+        return playerId + "'s " + pawnNumber;
     }
 
+    /**
+     * Find builder pawn with its number
+     * @param pawnNumber    pawn's index number
+     * @return  target pawn
+     */
     public BuilderPawn getBuilderPawn(int pawnNumber) {
         return getBuilderPawn(generatePawnId(String.valueOf(pawnNumber)));
     }
 
+    /**
+     * Find builder pawn with pawn id
+     * @param pawnId    pawn's index number
+     * @return  target pawn
+     */
     public BuilderPawn getBuilderPawn(String pawnId) {
         for (BuilderPawn builderPawn: builderPawnList) {
             if (builderPawn.getPawnId().equalsIgnoreCase(pawnId)) {
@@ -41,6 +50,9 @@ public class Player {
         return null;
     }
 
+    /**
+     * When the winner comes out, declare the winner and set the endgame flag
+     */
     public void declareWinner() {
         this.setWinner(true);
         game.setWinner(this);

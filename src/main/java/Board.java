@@ -30,10 +30,11 @@ public class Board {
     }
 
     /**
-     *
-     * @param x
-     * @param y
-     * @return
+     * Find the certain space in board according to x and y coordinate
+     * @param x row
+     * @param y column
+     * @return  target space
+     * @throws IllegalArgumentException if the coordinate is invalid
      */
     public Space getSpace(int x, int y) {
         if (!isCoordinateValid(x, y)) {
@@ -43,10 +44,10 @@ public class Board {
     }
 
     /**
-     *
-     * @param x
-     * @param y
-     * @return
+     * A coordinate is valid when x and y lies within the board length
+     * @param x row
+     * @param y column
+     * @return  true if coordinate is valid
      */
     public boolean isCoordinateValid(int x, int y) {
         return x >= 0 && x < boardLength && y >= 0 && y < boardLength;

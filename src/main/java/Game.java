@@ -17,6 +17,7 @@ public class Game {
     private Board board;
     private int playerNumber;
     private int boardLength;
+
     /**
      * Set to true by the winner when the game has ended.
      */
