@@ -17,6 +17,11 @@ public class Game {
     private Board board;
     private int playerNumber;
     private int boardLength;
+    /**
+     * Set to true by the winner when the game has ended.
+     */
+    private boolean gameEnd;
+    private Player winner;
 
     public Game() {
         this(DEFAULT_PLAYER_NUMBER, DEFAULT_BOARD_LENGTH);
@@ -86,5 +91,21 @@ public class Game {
 
     public void setBoardLength(int boardLength) {
         this.boardLength = boardLength;
+    }
+
+    public boolean isGameEnd() {
+        return gameEnd;
+    }
+
+    public void setGameEnd(boolean gameEnd) {
+        this.gameEnd = gameEnd;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 }

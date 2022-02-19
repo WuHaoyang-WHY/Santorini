@@ -21,6 +21,14 @@ public class Space {
         this.hasDome = hasDome;
     }
 
+    public boolean addHeight() {
+        if (height >= 3 || hasDome) {
+            return false;
+        }
+        height ++;
+        return true;
+    }
+
     public boolean hasPawn() {
         return pawn != null;
     }

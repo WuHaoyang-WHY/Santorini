@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Player {
 
@@ -8,6 +9,7 @@ public class Player {
     private Game game;
     private String playerId;
     private List<BuilderPawn> builderPawnList;
+    private boolean isWinner;
 
     public Player(Game game, String playerId) {
         this.game = game;
@@ -34,11 +36,17 @@ public class Player {
         return null;
     }
 
+    public void declareWinner() {
+        this.setWinner(true);
+        game.setWinner(this);
+        game.setGameEnd(true);
+    }
+
     private void initBuilderPawns() {
         List<BuilderPawn> builderPawnList = new ArrayList<>();
         for (int i = 0; i < DEFAULT_PAWN_NUMBER; i ++) {
             String pawnId = generatePawnId(String.valueOf(i));
-            builderPawnList.add(new BuilderPawn(pawnId));
+            builderPawnList.add(new BuilderPawn(pawnId, this));
         }
 
         this.builderPawnList = builderPawnList;
@@ -67,5 +75,26 @@ public class Player {
 
     public void setBuilderPawnList(List<BuilderPawn> builderPawnList) {
         this.builderPawnList = builderPawnList;
+    }
+
+    public boolean isWinner() {
+        return isWinner;
+    }
+
+    public void setWinner(boolean winner) {
+        isWinner = winner;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return playerId.equals(player.playerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerId);
     }
 }
