@@ -38,6 +38,10 @@ public class BuilderPawn {
         return (space.getHeight() - currentSpace.getHeight()) <= 1;
     }
 
+    protected boolean isAdjacentAndUnoccupied(Space space) {
+        return isSpaceAdjacent(space) && !space.hasDome() && !space.hasPawn();
+    }
+
     /**
      * if pawn can move to a space, it means at least:
      *  1. adjacent
@@ -49,8 +53,8 @@ public class BuilderPawn {
      * @return
      */
     public boolean canMoveTo(Space space) {
-        return isSpaceAdjacent(space) && isSpaceHeightDiffLessOrEqualThanOne(space) &&
-                !space.hasDome() && !space.hasPawn();
+        return isAdjacentAndUnoccupied(space) && isSpaceHeightDiffLessOrEqualThanOne(space);
+
     }
 
     /**
@@ -100,7 +104,7 @@ public class BuilderPawn {
      * @return  true, if we can build on the space
      */
     public boolean canBuildOn(Space space) {
-        return isSpaceAdjacent(space) && !space.hasPawn() && !space.hasDome() && space.getHeight() < 3;
+        return isAdjacentAndUnoccupied(space) && space.getHeight() < 3;
     }
 
     public boolean buildOn(Space space) {
@@ -110,18 +114,31 @@ public class BuilderPawn {
         return space.addHeight();
     }
 
+    public boolean canPutDomeOn(Space space) {
+        return isAdjacentAndUnoccupied(space) && space.getHeight() == 3;
+    }
+
+    public boolean putDomeOn(Space space) {
+        if (!canPutDomeOn(space)) {
+            return false;
+        }
+
+        space.setHasDome(true);
+        return true;
+    }
+
     protected boolean hasWonGame(Space oldSpace) {
         return currentSpace.getHeight() == 3 && oldSpace.getHeight() < 3;
     }
 
     /**
      * Place Pawn at initial stage
-     * @param board
+     *
      * @param space
      * @return
      */
-    public boolean initPlacePawn(Board board, Space space) {
-        if (!space.hasPawn()) {
+    public boolean initPlacePawn(Space space) {
+        if (space.hasPawn()) {
             return false;
         }
         space.setPawn(this);

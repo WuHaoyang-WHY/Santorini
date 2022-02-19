@@ -42,7 +42,7 @@ public class Game {
     }
 
     /**
-     * This is the game start process.
+     * This is the game start process. To be replaced by UI or command line interaction in the future.
      *
      * Prompt players to choose start position for pawns -> start game (move & build) until one player wins.
      *

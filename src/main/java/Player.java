@@ -17,6 +17,7 @@ public class Player {
         initBuilderPawns();
     }
 
+
     /**
      *
      * @param pawnNumber
@@ -24,6 +25,10 @@ public class Player {
      */
     public String generatePawnId(String pawnNumber) {
         return playerId + "'s" + pawnNumber;
+    }
+
+    public BuilderPawn getBuilderPawn(int pawnNumber) {
+        return getBuilderPawn(generatePawnId(String.valueOf(pawnNumber)));
     }
 
     public BuilderPawn getBuilderPawn(String pawnId) {
