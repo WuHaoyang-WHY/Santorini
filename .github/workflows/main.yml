@@ -17,18 +17,18 @@ jobs:
           distribution: microsoft
           java-version: 17
 
-      # Identifies all relevant Java files that have been changed in latest commit
-      - name: Change Java
-        uses: tj-actions/changed-files@v13.1
-        id: change-java
-        with:
-          files: |
-            pom.xml
-            **/*.java
+#      # Identifies all relevant Java files that have been changed in latest commit
+#      - name: Change Java
+#        uses: tj-actions/changed-files@v13.1
+#        id: change-java
+#        with:
+#          files: |
+#            pom.xml
+#            **/*.java
 
-      # Runs type checker for Java files
+      # Runs for Java files
       - name: Run on Java files
-        if: steps.change-java.outputs.any_changed == 'true'
+#        if: steps.change-java.outputs.any_changed == 'true'
         run: |
           timeout 2m mvn -f java/pom.xml site
           timeout 2m mvn -f java/pom.xml compilie
