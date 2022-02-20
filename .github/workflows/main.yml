@@ -27,7 +27,7 @@ jobs:
 #            **/*.java
 
       # Runs for Java files
-      - name: Run on Java files
+      - name: Run site, compilie & test on Java files
 #        if: steps.change-java.outputs.any_changed == 'true'
         run: |
           timeout 2m mvn site
