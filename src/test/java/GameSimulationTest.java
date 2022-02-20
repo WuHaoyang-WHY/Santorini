@@ -29,7 +29,7 @@ public class GameSimulationTest {
     }
 
     @Test
-    void testWholeGame() {
+    void wholeGameTest() {
         initStage();
         // p1 go first
         // try to move pawn 1, will fail
