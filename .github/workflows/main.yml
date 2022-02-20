@@ -30,6 +30,6 @@ jobs:
       - name: Run on Java files
 #        if: steps.change-java.outputs.any_changed == 'true'
         run: |
-          timeout 2m mvn -f java/pom.xml site
-          timeout 2m mvn -f java/pom.xml compilie
-          timeout 2m mvn -f java/pon.xml test
+          timeout 2m mvn site
+          timeout 2m mvn compilie
+          timeout 2m mvn test
