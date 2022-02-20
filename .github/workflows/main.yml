@@ -31,5 +31,5 @@ jobs:
 #        if: steps.change-java.outputs.any_changed == 'true'
         run: |
           timeout 2m mvn site
-          timeout 2m mvn compilie
+          timeout 2m mvn compile
           timeout 2m mvn test
