@@ -1,3 +1,6 @@
+/**
+ * Kept for possible further use.
+ */
 public class Msg {
 
     private boolean success;
